@@ -56,16 +56,16 @@ impl FactoryComponent for QueueSong {
         };
 
         // prepare dragging source
-        // let boxed = glib::BoxedAnyObject::new(index.clone());
-        // let content = gdk::ContentProvider::for_value(&boxed.to_value());
-        // model.drag_src.set_actions(gdk::DragAction::MOVE);
-        // model.drag_src.set_content(Some(&content));
-        // dbg!(&boxed.borrow::<DynamicIndex>());
-
-        // test with String
-        let content = gdk::ContentProvider::for_value(&String::from("test").to_value());
+        let boxed = glib::BoxedAnyObject::new(index.clone());
+        let content = gdk::ContentProvider::for_value(&boxed.to_value());
         model.drag_src.set_actions(gdk::DragAction::MOVE);
         model.drag_src.set_content(Some(&content));
+        dbg!(&boxed.borrow::<DynamicIndex>());
+
+        // test with String
+        // let content = gdk::ContentProvider::for_value(&String::from("test").to_value());
+        // model.drag_src.set_actions(gdk::DragAction::MOVE);
+        // model.drag_src.set_content(Some(&content));
 
         model
     }
@@ -159,8 +159,10 @@ impl FactoryComponent for QueueSong {
 
                         // let any = value.get::<String>();
 
+
                         // todo!("extract DynamicIndex");
 
+                        sender.input(QueueSongInput::DragLeave);
                         true
                     },
 
